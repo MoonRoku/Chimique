@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista De Registro</title>
+    <style>
+        body{
+            background-color: #6bc76f;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .elemento-flutuante {
+            animation: float 3s ease-in-out infinite;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            transition: 2s;
+            z-index: -1;
+            user-select: none;
+        }
+
+        #caixa{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .button {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            border-radius: 58px;
+            z-index: 10;
+        }
+
+        .texto {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            border-radius: 58px;
+            z-index: 10;
+        }
+
+        .button:hover {
+            transition: 1s;
+            background-color: #6bc76f; 
+            color: black; 
+            border: 1px solid #4CAF50; 
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id='caixa'>
+        <form method="GET" action="{% url 'pesquisar_produto' %}">
+            <input type="text" name="termo_pesquisa" class="texto" placeholder="Digite o nome do produto">
+            <br>
+            <input class="button" type="submit" value="Pesquisar">
+        </form>
+    </div>
+
+    <script>
+        let string = `{{ produtos }}`.replace(/&quot;/g, '"').replace(/\n/g, '');
+        let registros = JSON.parse(string);
+        console.log(registros)
+
+
+        registros.forEach((produto) => {
+            console.log(produto);
+            let GerarDiv = document.createElement('div');
+            GerarDiv.className = 'elemento-flutuante';
+            GerarDiv.style.display = 'none';
+            GerarDiv.innerText = produto.nome;
+            document.body.appendChild(GerarDiv);
+        })
+
+        function getRandomPosition(element) {
+            const x = window.innerWidth - element.clientWidth;
+            const y = window.innerHeight - element.clientHeight;
+            const randomX = Math.floor(Math.random() * x);
+            const randomY = Math.floor(Math.random() * y);
+            return [randomX, randomY];
+        }
+
+        async function setRandomSpawn(element) {
+            RandomSpawn = Math.floor(Math.random() * 10)
+            console.log(RandomSpawn);
+            Tempo = RandomSpawn * 1000;
+            setTimeout(()=> element.style.display = "flex", Tempo);
+        }
+
+        function setRandomPosition(element) {
+            const [randomX, randomY] = getRandomPosition(element);
+            element.style.left = `${randomX}px`;
+            element.style.top = `${randomY}px`;
+        }
+
+        const element = document.getElementsByClassName('elemento-flutuante');
+            console.log(element);
+            [...element].forEach(element => {
+                setRandomSpawn(element);
+            });
+
+        function change(){
+
+            const element = document.getElementsByClassName('elemento-flutuante');
+
+            [...element].forEach(element => {
+                
+                setRandomPosition(element);
+            });
+        }
+
+
+        setInterval(() => change(), 5000);
+    </script>
+</body>
+</html>

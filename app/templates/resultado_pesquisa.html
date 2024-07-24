@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados da Pesquisa</title>
+</head>
+<body>
+    <div id='caixa'>
+        <h2>Resultados da Pesquisa para "{{ termo_pesquisa }}"</h2>
+        <ul>
+            {% for produto in produtos %}
+                <li>{{ produto.nome }}</li>
+                <br>
+                <li>{{ produto.origem }}</li>
+                <br>
+                <li>
+                    <img src="{{ produto.imagem }}">
+                </li>
+                <br>
+                <li>{{ produto.compostos }}</li>
+                <br>
+                <li>{{ produto.categoria }}</li>
+            {% empty %}
+                <li>Nenhum produto encontrado.</li>
+            {% endfor %}
+        </ul>
+        <a href="/" class="button">Nova Pesquisa</a>
+    </div>
+</body>
+</html>
