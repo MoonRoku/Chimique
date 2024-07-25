@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import *
+from .forms import *
 
 def python_to_javascript(data):
     js_code = "["
@@ -45,4 +46,18 @@ def pesquisar_produto(request):
         produtos = Produto.objects.none()
 
     return render(request, 'resultado_pesquisa.html', {'produtos': produtos, 'termo_pesquisa': termo_pesquisa})
+
+def registrar_produto(request):
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = ProdutoForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'registrar_produto.html', context)
 
