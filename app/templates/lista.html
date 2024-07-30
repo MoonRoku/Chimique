@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista De Registro</title>
+    <style>
+        body{
+        background-color: #6bc76f;
+        }
+
+
+        #tabela{
+            
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .lin{
+            border: 1px solid rgb(86, 104, 51);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #277425;
+        }
+
+        button {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            border-radius: 58px;
+            z-index: 10;
+        }
+
+        .button:hover {
+            transition: 1s;
+            background-color: #ffffff00; 
+            color: black; 
+            border: 1px solid #4CAF50; 
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th class="lin">ID</th>
+                <th class="lin"><h2>Nome</h2></th>
+                <th class="lin"><h2>Categoria</h2></th>
+                <th class="lin"><h2>Origem</h2></th>
+                <th class="lin"><h2>Compostos</h2></th>
+                <th class="lin"><h2>Ações</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+
+            <tr>
+                <td class="lin ">{{ produto.id }}</td>
+                <td class="lin">{{ produto.nome }}</td>
+                <td class="lin">{{ produto.categoria }}</td>
+                <td class="lin">{{ produto.origem }}</td>
+                <td class="lin">{{ produto.compostos }}</td>
+                <td class="lin"><a href="delete/{{ livros.id }}" class="button">Excluir</a></td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

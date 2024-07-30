@@ -2,6 +2,22 @@ body{
     background-color: #6bc76f;
 }
 
+
+#tabela{
+    
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lin{
+    border: 1px solid yellowgreen;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
 @keyframes float {
     0%, 100% {
         transform: translateY(0);
@@ -25,7 +41,7 @@ body{
     display: grid;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
 }
 
 .button {

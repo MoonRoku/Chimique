@@ -61,3 +61,13 @@ def registrar_produto(request):
     }
     return render(request, 'registrar_produto.html', context)
 
+class listaView(View):
+    def get(self, request):
+        produtos = Produto.objects.all()
+        return render(request, 'lista.html', {'produtos': produtos })
+    
+class deleteProduto(View):
+    def get(self, request, id, *args, **kwargs):
+        produtos = Produto.objects.get(id = id)
+        produtos.delete()
+        return redirect('lista.html')

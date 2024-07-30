@@ -12,7 +12,10 @@
     <div id='caixa' style="text-align: center;">
 
     
-        <a href="{% url 'registrar_produto' %}" class="button">Registrar</a>
+        <div>
+            <a href="" class="button">Formar</a>
+            <a href="{% url 'lista' %}" class="button">Registrar</a>
+        </div>
 
         <form method="GET" action="{% url 'pesquisar_produto' %}">
             <input type="text" name="termo_pesquisa" class="texto" placeholder="Digite o nome do produto">
