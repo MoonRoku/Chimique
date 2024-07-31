@@ -5,7 +5,7 @@ from django.conf import settings
 from .models import *
 from .forms import *
 
-openai.api_key = settings.sk-proj-MsshL9eEpJgbfUe11CaPT3BlbkFJlSnFB0PIaVfDz9qcqRSL
+openai.api_key = settings.OPENAI_API_KEY
 
 def python_to_javascript(data):
     js_code = "["
@@ -91,13 +91,15 @@ def misturar_compostos(request):
                       f"Informe o nome da mistura, origem, categoria e compostos resultantes.")
 
             try:
-                response = openai.Completion.create(
-                    model="text-davinci-003", 
-                    prompt=prompt,
+                response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "user", "content": prompt}
+                    ],
                     max_tokens=150
                 )
                 
-                resultado = response.choices[0].text.strip()
+                resultado = response.choices[0].message['content'].strip()
             except openai.OpenAIError as e:
                 resultado = f"Ocorreu um erro ao chamar a API: {e}"
 
