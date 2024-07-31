@@ -21,6 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# settings.py
+OPENAI_API_KEY = 'sk-proj-MsshL9eEpJgbfUe11CaPT3BlbkFJlSnFB0PIaVfDz9qcqRSL'
+
 SECRET_KEY = 'django-insecure-o==05dnmhjolwvemvm&d0t=m)1ebm62^yrnq3_j$_scvg)3dnw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -80,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Chimique',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432',
     }

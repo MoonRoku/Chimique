@@ -13,3 +13,7 @@ class ProdutoForm(forms.ModelForm):
         self.fields['imagem'].widget.attrs.update({'class': 'texto'})
         self.fields['compostos'].widget.attrs.update({'class': 'texto'})
         self.fields['categoria'].widget.attrs.update({'class': 'texto'})
+
+class MixCompostosForm(forms.Form):
+    composto1 = forms.CharField(label='Composto 1', max_length=100)
+    composto2 = forms.CharField(label='Composto 2', max_length=100)

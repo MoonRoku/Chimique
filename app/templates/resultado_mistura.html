@@ -1,0 +1,14 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado da Mistura</title>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+</head>
+<body>
+    <h1>Resultado da Mistura</h1>
+    <p>{{ resultado }}</p>
+    <a href="{% url 'misturar_compostos' %}">Voltar</a>
+</body>
+</html>

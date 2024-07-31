@@ -1,7 +1,11 @@
+import openai
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.conf import settings
 from .models import *
 from .forms import *
+
+openai.api_key = settings.sk-proj-MsshL9eEpJgbfUe11CaPT3BlbkFJlSnFB0PIaVfDz9qcqRSL
 
 def python_to_javascript(data):
     js_code = "["
@@ -70,4 +74,40 @@ class deleteProduto(View):
     def get(self, request, id, *args, **kwargs):
         produtos = Produto.objects.get(id = id)
         produtos.delete()
-        return redirect('lista.html')
+        return redirect('lista')
+    
+
+def misturar_compostos(request):
+    if request.method == 'POST':
+        form = MixCompostosForm(request.POST)
+        if form.is_valid():
+            composto1 = form.cleaned_data['composto1']
+            composto2 = form.cleaned_data['composto2']
+            
+            prompt = (f"Você é um especialista em química. Com base nas informações fornecidas, "
+                      f"descreva a mistura dos seguintes compostos químicos:\n"
+                      f"Composto 1: {composto1}\n"
+                      f"Composto 2: {composto2}\n"
+                      f"Informe o nome da mistura, origem, categoria e compostos resultantes.")
+
+            try:
+                response = openai.Completion.create(
+                    model="text-davinci-003", 
+                    prompt=prompt,
+                    max_tokens=150
+                )
+                
+                resultado = response.choices[0].text.strip()
+            except openai.OpenAIError as e:
+                resultado = f"Ocorreu um erro ao chamar a API: {e}"
+
+            context = {
+                'resultado': resultado,
+                'form': form
+            }
+
+            return render(request, 'resultado_mistura.html', context)
+    else:
+        form = MixCompostosForm()
+
+    return render(request, 'misturar_compostos.html', {'form': form})

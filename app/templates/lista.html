@@ -70,11 +70,18 @@
                 <td class="lin">{{ produto.categoria }}</td>
                 <td class="lin">{{ produto.origem }}</td>
                 <td class="lin">{{ produto.compostos }}</td>
-                <td class="lin"><a href="delete/{{ livros.id }}" class="button">Excluir</a></td>
+                <td class="lin"><a href="{% url 'delete' produto.id %}" class="button">Excluir</a></td>
             </tr>
 
             {% endfor %}
         </tbody>
     </table>
+    <a class="button" href="{% url 'registrar_produto' %}">
+        Registro/Alteração
+    </a>
+    <hr>
+    <a href="{% url 'index' %}" class="button">
+        Voltar
+    </a>
 </body>
 </html>
