@@ -11,7 +11,8 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Mixar</button>
+        <button type="submit" class="button">Mixar</button>
+        <a class="button" href="{% url 'index' %}">Voltar</a>
     </form>
 </body>
 </html>
