@@ -8,7 +8,22 @@
 </head>
 <body>
     <h1>Resultado da Mistura</h1>
-    <p>{{ resultado }}</p>
+    <p id="resp">{{ resultado }}</p>
     <a href="{% url 'misturar_compostos' %}" class="button">Voltar</a>
+
+    <script>
+        function removerAspas() {
+    
+            var texto = document.getElementById('resp');
+            
+            var text = texto.innerText;
+            
+            var novoTexto = text.replace(/"/g, '');
+            
+            texto.innerText = novoTexto;
+        }
+        
+        removerAspas();
+    </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 import g4f
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from config.settings import OPENAI_API_KEY
 from .models import *
 from .forms import *
 
@@ -96,10 +95,9 @@ def misturar_compostos(request):
         form = MixCompostosForm(request.POST)
         if form.is_valid():
             composto1 = form.cleaned_data['composto1']
-            composto2 = form.cleaned_data['composto2']
             
-            sysprompt = f"Você é um especialista em química // Você responde qual o resultado de misturas químicas // Você fala português // no final da resposta você informa o nome da mistura, origem e categoria"
-            prompt = f"Qual a mistura dos compostos: {composto1} + {composto2}"
+            sysprompt = f'Você é um especialista em química // Você responde segundo a IUPAC'
+            prompt = f"Qual a mistura dos compostos: {composto1}"
 
             try:
                 response = g4f.ChatCompletion.create(
@@ -110,7 +108,6 @@ def misturar_compostos(request):
                     ]
                 )
                 
-                # Ajuste no acesso ao conteúdo da resposta
                 resultado = response
             except Exception as e:
                 resultado = f"Ocorreu um erro ao chamar a API: {e}"
