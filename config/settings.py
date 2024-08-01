@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # settings.py
-OPENAI_API_KEY = 'sk-proj-XU67zvtlsPXsvEbVHLdNT3BlbkFJgusw3zQkqRZKC0eTruxm'
+OPENAI_API_KEY = 'sk-proj-CyqRiVNYPv6KXmzzUiXuT3BlbkFJCiEETmsjbMX9IRoUyauS'
 
 SECRET_KEY = 'django-insecure-o==05dnmhjolwvemvm&d0t=m)1ebm62^yrnq3_j$_scvg)3dnw'
 
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Chimique',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '5432',
     }

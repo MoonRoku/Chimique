@@ -55,7 +55,22 @@ def registrar_produto(request):
     if request.method == 'POST':
         form = ProdutoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            nome = form.cleaned_data.get('nome')
+            
+            produto_existente = Produto.objects.filter(nome=nome).first()
+            
+            if produto_existente:
+                produto_existente.origem = form.cleaned_data.get('origem', produto_existente.origem)
+                produto_existente.compostos = form.cleaned_data.get('compostos', produto_existente.compostos)
+                produto_existente.categoria = form.cleaned_data.get('categoria', produto_existente.categoria)
+                
+                if 'imagem' in request.FILES:
+                    produto_existente.imagem = request.FILES['imagem']
+                
+                produto_existente.save()
+            else:
+                form.save()
+            
             return redirect('index')
     else:
         form = ProdutoForm()
@@ -99,6 +114,7 @@ def misturar_compostos(request):
                     max_tokens=150
                 )
                 
+                # Ajuste no acesso ao conteúdo da resposta
                 resultado = response.choices[0].message['content'].strip()
             except openai.OpenAIError as e:
                 resultado = f"Ocorreu um erro ao chamar a API: {e}"
