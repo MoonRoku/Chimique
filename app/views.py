@@ -1,4 +1,5 @@
 import g4f
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import *
@@ -38,6 +39,15 @@ class IndexView(View):
 
     def post(self, request):
         pass
+    
+def get_suggestions(request):
+    termo = request.GET.get('term', '')
+    if termo:
+        produtos = Produto.objects.filter(nome__icontains=termo)[:4]
+        suggestions = [produto.nome for produto in produtos]
+    else:
+        suggestions = []
+    return JsonResponse(suggestions, safe=False)
     
 def pesquisar_produto(request):
     termo_pesquisa = request.GET.get('termo_pesquisa')
@@ -88,7 +98,6 @@ class deleteProduto(View):
         produtos = Produto.objects.get(id = id)
         produtos.delete()
         return redirect('lista')
-    
 
 def misturar_compostos(request):
     if request.method == 'POST':
