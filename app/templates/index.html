@@ -2,16 +2,111 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Lista De Registro</title>
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <style>
+        body {
+            background-color: #6bc76f;
+        }
+
+
+        #tabela {
+
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .lin {
+            border: 1px solid yellowgreen;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .elemento-flutuante {
+            border: #3d8d40 1px solid;
+            border-radius: 100rem;
+            color: rgb(21, 114, 9);
+            padding: 0.3rem;
+            background-color: #62ad66;
+            animation: float 3s ease-in-out infinite;
+            position: absolute;
+            transition: 2s;
+            z-index: -1;
+            user-select: none;
+        }
+
+        #caixa {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            border-radius: 58px;
+            z-index: 10;
+        }
+
+        .texto {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            border-radius: 58px;
+            z-index: 10;
+        }
+
+        .button:hover {
+            transition: 1s;
+            background-color: #ffffff00;
+            color: black;
+            border: 1px solid #4CAF50;
+            z-index: 10;
+        }
+    </style>
 </head>
+
 <body>
 
     <div id='caixa' style="text-align: center;">
 
-    
+
         <div>
             <a href="{% url 'misturar_compostos' %}" class="button">Formar</a>
             <a href="{% url 'lista' %}" class="button">Elementos</a>
@@ -51,7 +146,7 @@
             RandomSpawn = Math.floor(Math.random() * 10)
             console.log(RandomSpawn);
             Tempo = RandomSpawn * 1000;
-            setTimeout(()=> element.style.display = "flex", Tempo);
+            setTimeout(() => element.style.display = "flex", Tempo);
         }
 
         function setRandomPosition(element) {
@@ -61,17 +156,17 @@
         }
 
         const element = document.getElementsByClassName('elemento-flutuante');
-            console.log(element);
-            [...element].forEach(element => {
-                setRandomSpawn(element);
-            });
+        console.log(element);
+        [...element].forEach(element => {
+            setRandomSpawn(element);
+        });
 
-        function change(){
+        function change() {
 
             const element = document.getElementsByClassName('elemento-flutuante');
 
             [...element].forEach(element => {
-                
+
                 setRandomPosition(element);
             });
         }
@@ -80,4 +175,5 @@
         setInterval(() => change(), 5000);
     </script>
 </body>
+
 </html>
