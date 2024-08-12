@@ -1,11 +1,10 @@
-import openai
+import g4f
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.conf import settings
 from .models import *
 from .forms import *
 
-openai.api_key = settings.OPENAI_API_KEY
 
 def python_to_javascript(data):
     js_code = "["
@@ -40,6 +39,15 @@ class IndexView(View):
 
     def post(self, request):
         pass
+    
+def get_suggestions(request):
+    termo = request.GET.get('term', '')
+    if termo:
+        produtos = Produto.objects.filter(nome__icontains=termo)[:4]
+        suggestions = [produto.nome for produto in produtos]
+    else:
+        suggestions = []
+    return JsonResponse(suggestions, safe=False)
     
 def pesquisar_produto(request):
     termo_pesquisa = request.GET.get('termo_pesquisa')
@@ -90,34 +98,30 @@ class deleteProduto(View):
         produtos = Produto.objects.get(id = id)
         produtos.delete()
         return redirect('lista')
-    
 
 def misturar_compostos(request):
     if request.method == 'POST':
         form = MixCompostosForm(request.POST)
         if form.is_valid():
             composto1 = form.cleaned_data['composto1']
-            composto2 = form.cleaned_data['composto2']
             
-            prompt = (f"Você é um especialista em química. Com base nas informações fornecidas, "
-                      f"descreva a mistura dos seguintes compostos químicos:\n"
-                      f"Composto 1: {composto1}\n"
-                      f"Composto 2: {composto2}\n"
-                      f"Informe o nome da mistura, origem, categoria e compostos resultantes.")
+            sysprompt = f'Você é um especialista em química'
+            sysprompt = f'Você responde segundo a IUPAC'
+            prompt = f"Qual a mistura dos compostos: {composto1}"
 
             try:
-                response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
+                response = g4f.ChatCompletion.create(
+                    model=g4f.models.gpt_35_turbo,
                     messages=[
+                        {"role": "system", "content": sysprompt},
                         {"role": "user", "content": prompt}
-                    ],
-                    max_tokens=150
+                    ]
                 )
                 
-                # Ajuste no acesso ao conteúdo da resposta
-                resultado = response.choices[0].message['content'].strip()
-            except openai.OpenAIError as e:
+                resultado = response
+            except Exception as e:
                 resultado = f"Ocorreu um erro ao chamar a API: {e}"
+            print(resultado)
 
             context = {
                 'resultado': resultado,

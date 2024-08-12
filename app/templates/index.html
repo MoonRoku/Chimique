@@ -7,105 +7,14 @@
     <meta charset="UTF-8">
     <title>Lista De Registro</title>
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-    <style>
-        body {
-            background-color: #6bc76f;
-        }
-
-
-        #tabela {
-
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .lin {
-            border: 1px solid yellowgreen;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .elemento-flutuante {
-            border: #3d8d40 1px solid;
-            border-radius: 100rem;
-            color: rgb(21, 114, 9);
-            padding: 0.3rem;
-            background-color: #62ad66;
-            animation: float 3s ease-in-out infinite;
-            position: absolute;
-            transition: 2s;
-            z-index: -1;
-            user-select: none;
-        }
-
-        #caixa {
-            display: grid;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-        }
-
-        .button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            transition-duration: 0.4s;
-            border-radius: 58px;
-            z-index: 10;
-        }
-
-        .texto {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            transition-duration: 0.4s;
-            border-radius: 58px;
-            z-index: 10;
-        }
-
-        .button:hover {
-            transition: 1s;
-            background-color: #ffffff00;
-            color: black;
-            border: 1px solid #4CAF50;
-            z-index: 10;
-        }
-    </style>
 </head>
 
 <body>
+    <h1 class="titulo1">
+        Chimique
+    </h1>
 
-    <div id='caixa' style="text-align: center;">
-
+    <div class='caixa' style="text-align: center;">
 
         <div>
             <a href="{% url 'misturar_compostos' %}" class="button">Formar</a>
@@ -113,17 +22,57 @@
         </div>
 
         <form method="GET" action="{% url 'pesquisar_produto' %}">
-            <input type="text" name="termo_pesquisa" class="texto" placeholder="Digite o nome do produto">
-            <br>
+            <input type="text" id="search-input" name="termo_pesquisa" class="texto1" placeholder="Nome do produto">
+            
             <input class="button" type="submit" value="Pesquisar">
         </form>
+        
+        <div id="suggestions"></div>
+
     </div>
 
     <script>
+        const input = document.getElementById('search-input');
+        const suggestionsBox = document.getElementById('suggestions');
+
+        input.addEventListener('input', async function() {
+            const query = input.value;
+            if (query.length < 1) {
+                suggestionsBox.classList.remove('show');
+                suggestionsBox.innerHTML = '';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/get-suggestions/?term=${encodeURIComponent(query)}`);
+                const suggestions = await response.json();
+
+                suggestionsBox.innerHTML = suggestions.map(item => `<div class="suggestion-item">${item}</div>`).join('');
+                suggestionsBox.classList.add('show');
+                
+                document.querySelectorAll('.suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        input.value = item.textContent;
+                        suggestionsBox.classList.remove('show');
+                        suggestionsBox.innerHTML = '';
+                    });
+                });
+
+            } catch (error) {
+                console.error('Erro ao buscar sugestões:', error);
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!suggestionsBox.contains(event.target) && event.target !== input) {
+                suggestionsBox.classList.remove('show');
+            }
+        });
+
+
         let string = `{{ produtos }}`.replace(/&quot;/g, '"').replace(/\n/g, '');
         let registros = JSON.parse(string);
         console.log(registros)
-
 
         registros.forEach((produto) => {
             console.log(produto);

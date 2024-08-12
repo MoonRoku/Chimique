@@ -8,4 +8,5 @@ urlpatterns = [
     path('lista/', listaView.as_view(), name='lista'),
     path('delete/<int:id>/', deleteProduto.as_view(),name='delete'),
     path('misturar/', misturar_compostos, name='misturar_compostos'),
+    path('get-suggestions/', get_suggestions, name='get_suggestions'),
 ]

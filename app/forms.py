@@ -15,5 +15,7 @@ class ProdutoForm(forms.ModelForm):
         self.fields['categoria'].widget.attrs.update({'class': 'texto'})
 
 class MixCompostosForm(forms.Form):
-    composto1 = forms.CharField(label='Composto 1', max_length=100)
-    composto2 = forms.CharField(label='Composto 2', max_length=100)
+    composto1 = forms.CharField(
+        label='',
+        widget=forms.Textarea(attrs={'class': 'texto', 'rows': 4, 'cols': 40})
+    )

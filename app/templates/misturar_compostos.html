@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 </head>
 <body>
-    <h1>Mixar Compostos Químicos</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Mixar</button>
-    </form>
+    <a class="button" href="{% url 'index' %}">Voltar</a>
+    <div class="mixar">
+        <h1 class="titulo2">Mixar Compostos Químicos</h1>
+        <form method="post">
+            <p class="fundir">Insira os elementos a serem fundidos:(separe-os com vírgula)</p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">Mixar</button>
+        </form>
+    </div>
+
 </body>
 </html>
