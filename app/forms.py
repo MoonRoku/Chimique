@@ -4,7 +4,7 @@ from .models import Produto
 class ProdutoForm(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome', 'origem', 'imagem', 'compostos', 'categoria']
+        fields = ['nome', 'origem', 'imagem', 'compostos', 'categoria', 'link']
         
     def __init__(self, *args, **kwargs):
         super(ProdutoForm, self).__init__(*args, **kwargs)
@@ -13,6 +13,7 @@ class ProdutoForm(forms.ModelForm):
         self.fields['imagem'].widget.attrs.update({'class': 'texto'})
         self.fields['compostos'].widget.attrs.update({'class': 'texto'})
         self.fields['categoria'].widget.attrs.update({'class': 'texto'})
+        self.fields['link'].widget.attrs.update({'class': 'texto'})
 
 class MixCompostosForm(forms.Form):
     composto1 = forms.CharField(

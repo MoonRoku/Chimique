@@ -24,6 +24,8 @@ def python_to_javascript(data):
                 js_code += f', "campo2": "{value}"'
             elif i == 5:
                 js_code += f', "campo3": "{value}"'
+            elif i == 6:
+                js_code += f', "campo4": "{value}"'
                 
         js_code += "},\n" if(j < len(data)-1) else "}\n"
     
@@ -105,7 +107,8 @@ def misturar_compostos(request):
         if form.is_valid():
             composto1 = form.cleaned_data['composto1']
             
-            sysprompt = f'Você é um especialista em química // Você responde segundo a IUPAC'
+            sysprompt = f'Você é um especialista em química'
+            sysprompt = f'Você responde segundo a IUPAC'
             prompt = f"Qual a mistura dos compostos: {composto1}"
 
             try:
