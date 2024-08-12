@@ -70,6 +70,13 @@ tr:nth-child(even) {
     user-select: none;
 }
 
+#cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cria colunas de largura mínima de 300px */
+    gap: 20px; /* Espaçamento entre os cards */
+    justify-items: center;
+}
+
 .caixa{
     justify-content: center;
     align-items: center;
@@ -90,6 +97,31 @@ tr:nth-child(even) {
     margin-left: 35rem;
     margin-top: 7rem;
     padding: 1rem 5rem 2rem 5rem;
+    border-radius: 2rem;
+}
+
+.card{
+    background-color: #3d8d40;
+    width: fit-content;
+    padding: 1rem 5rem 2rem 1rem;
+    border-radius: 1rem;
+    border: 0.8rem #62ad66 solid;
+}
+
+.card img{
+    height: auto;
+    width: 300px;
+}
+
+li {
+    font-family: "poppins", sans-serif;
+    font-size: 1.5rem;
+    color: white;
+    padding-bottom: 1.5rem;
+}
+
+iframe{
+    border: 1rem #62ad66 solid;
     border-radius: 2rem;
 }
 
@@ -131,7 +163,7 @@ tr:nth-child(even) {
     background-color: #4CAF50; 
     border: none;
     color: white;
-    padding: 0 1rem 0 6rem;
+    padding-top: -5rem;
     text-align: center;
     display: inline-block;
     margin-top: 5rem;

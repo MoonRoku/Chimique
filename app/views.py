@@ -24,6 +24,8 @@ def python_to_javascript(data):
                 js_code += f', "campo2": "{value}"'
             elif i == 5:
                 js_code += f', "campo3": "{value}"'
+            elif i == 6:
+                js_code += f', "campo4": "{value}"'
                 
         js_code += "},\n" if(j < len(data)-1) else "}\n"
     

@@ -6,6 +6,7 @@ class Produto(models.Model):
     imagem = models.ImageField(upload_to='app/static/imagens', blank=True)
     compostos = models.TextField()
     categoria = models.CharField(max_length=100)
+    link = models.TextField(verbose_name='link do composto em 3D', null=True)
     class Meta:
         verbose_name_plural = "Produtos"
     def __str__(self):
