@@ -8,12 +8,16 @@
     <title>Página de Registro do Produto</title>
 </head>
 <body>
-    <h1>Formulário de registro e alteração do produto</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="button">Registrar/Alterar produto</button>
-    </form>
     <a href="{% url 'lista' %}" class="button">Voltar</a>
+    <div class="caixa">
+        <div class="mixar">
+            <h1 class="titulo2">Formulário de registro e alteração do produto</h1>
+            <form class="registroform" clamethod="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button">Registrar/Alterar produto</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

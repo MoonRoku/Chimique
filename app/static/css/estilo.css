@@ -6,6 +6,13 @@ body{
     background-color: #6bc76f;
 }
 
+.resultado_pesquisa{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .titulo1{
     text-align: center;
     font-family: "Recursive", sans-serif;
@@ -72,15 +79,16 @@ tr:nth-child(even) {
 
 #cards{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cria colunas de largura mínima de 300px */
-    gap: 20px; /* Espaçamento entre os cards */
-    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20rem;
 }
 
 .caixa{
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    height: 80vh;
+    justify-content: center;
+    text-align: center;
 }
 
 .fundir{
@@ -91,13 +99,19 @@ tr:nth-child(even) {
 }
 
 .mixar{
-    text-align: center;
     background-color: #3d8d40;
-    width: fit-content;
-    margin-left: 35rem;
     margin-top: 7rem;
     padding: 1rem 5rem 2rem 5rem;
     border-radius: 2rem;
+    width: 50rem;
+    overflow: hidden;
+}
+
+#resp{
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-align: justify;
 }
 
 .card{
@@ -111,6 +125,29 @@ tr:nth-child(even) {
 .card img{
     height: auto;
     width: 300px;
+}
+
+.registroform label{
+    display: block;
+    font-family: "poppins", sans-serif;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.registroform .texto{
+    background-color: #4CAF50;
+    font-family: "poppins", sans-serif;
+    color: white;
+    border-radius: 0.9rem;
+    width: 22rem;
+    height: 2.7rem;
+    margin: 0;
+}
+
+.registroform .imagem{
+    width: auto;
+    height: auto;
 }
 
 li {
@@ -164,14 +201,16 @@ iframe{
     border: none;
     color: white;
     padding-top: -5rem;
-    text-align: center;
+    text-align: justify;
     display: inline-block;
     margin-top: 5rem;
     font-family: "Poppins", sans-serif;
     cursor: pointer;
     transition-duration: 0.4s;
-    border-radius: 58px;
+    border-radius: 2rem;
     z-index: 10;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .texto1 {
@@ -204,10 +243,8 @@ iframe{
 }
 
 #suggestions {
-    position: absolute;
     background-color: #4CAF50;
     z-index: 1000;
-    margin-left: 41.5rem;
     border-radius: 10px;
     border: 1px white solid;
 }

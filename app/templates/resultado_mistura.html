@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 </head>
 <body>
-    <h1>Resultado da Mistura</h1>
-    <p id="resp">{{ resultado }}</p>
     <a href="{% url 'misturar_compostos' %}" class="button">Voltar</a>
+    <div class="caixa">
+        <div class="mixar">
+            <h1 class="titulo2">Resultado da Mistura</h1>
+            <p id="resp" style="font-family: 'poppins', sans-serif; color: white; text-align: justify;">{{ resultado }}</p>
+        </div>
+    </div>
 
     <script>
         function removerAspas() {
