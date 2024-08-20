@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Senha</title>
+</head>
+<body>
+    <h1>Senha</h1>
+    <form method="post">
+        <p class="fundir">Insira o usuário e a senha</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Go</button>
+</body>
+</html>

@@ -20,3 +20,13 @@ class MixCompostosForm(forms.Form):
         label='',
         widget=forms.Textarea(attrs={'class': 'texto', 'rows': 4, 'cols': 40})
     )
+
+class SenhaForm(forms.Form):
+    Usuário = forms.CharField(
+        label='',
+        max_length=100
+    )
+    Senha = forms.CharField(
+        label='',
+        max_length=100
+    )

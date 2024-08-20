@@ -12,7 +12,7 @@
     <div class="caixa">
         <div class="mixar">
             <h1 class="titulo2">Formulário de registro e alteração do produto</h1>
-            <form class="registroform" clamethod="post" enctype="multipart/form-data">
+            <form class="registroform" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="button">Registrar/Alterar produto</button>

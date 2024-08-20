@@ -36,11 +36,18 @@ class IndexView(View):
     def get(self, request):
         produtos = Produto.objects.all()
         produtos_parser = python_to_javascript(list(produtos.values_list()))
-        print(produtos_parser)
         return render(request, 'index.html', {'produtos': produtos_parser })
 
     def post(self, request):
         pass
+
+class SenhaView(View):
+    def get(self, request):
+        form = SenhaForm 
+        return render(request, 'senha.html', {'form':form})
+    def post(self, request):
+        form = SenhaForm
+        return render(request, 'senha.html', {'form':form})
     
 def get_suggestions(request):
     termo = request.GET.get('term', '')
@@ -61,8 +68,11 @@ def pesquisar_produto(request):
 
     return render(request, 'resultado_pesquisa.html', {'produtos': produtos, 'termo_pesquisa': termo_pesquisa})
 
-def registrar_produto(request):
-    if request.method == 'POST':
+class registrar_produto(View):
+    def get(self, request):
+        form = ProdutoForm
+        return render(request, 'registrar_produto.html', {'form': form})
+    def post(self, request):
         form = ProdutoForm(request.POST, request.FILES)
         if form.is_valid():
             nome = form.cleaned_data.get('nome')
@@ -80,15 +90,9 @@ def registrar_produto(request):
                 produto_existente.save()
             else:
                 form.save()
-            
-            return redirect('index')
-    else:
-        form = ProdutoForm()
-    
-    context = {
-        'form': form,
-    }
-    return render(request, 'registrar_produto.html', context)
+                return redirect('index')
+
+        return render(request, 'registrar_produto.html', context, {'form': form})
 
 class listaView(View):
     def get(self, request):
