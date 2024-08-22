@@ -43,11 +43,21 @@ class IndexView(View):
 
 class SenhaView(View):
     def get(self, request):
-        form = SenhaForm 
+        form = SenhaForm()
         return render(request, 'senha.html', {'form':form})
     def post(self, request):
-        form = SenhaForm
-        return render(request, 'senha.html', {'form':form})
+        form = SenhaForm(request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data.get('usuario')
+            senha = form.cleaned_data.get('senha')
+            
+            if(usuario == 'admin' and senha == 'admin'):
+                administra = True
+            else:
+                administra = False
+            
+            request.session['ADM'] = administra
+        return render(request, 'senha.html', {'form':form, 'ADM':administra})
     
 def get_suggestions(request):
     termo = request.GET.get('term', '')
@@ -92,7 +102,7 @@ class registrar_produto(View):
                 form.save()
                 return redirect('index')
 
-        return render(request, 'registrar_produto.html', context, {'form': form})
+        return render(request, 'registrar_produto.html', {'form': form})
 
 class listaView(View):
     def get(self, request):

@@ -22,11 +22,11 @@ class MixCompostosForm(forms.Form):
     )
 
 class SenhaForm(forms.Form):
-    Usuário = forms.CharField(
+    usuario = forms.CharField(
         label='',
         max_length=100
     )
-    Senha = forms.CharField(
+    senha = forms.CharField(
         label='',
         max_length=100
     )
