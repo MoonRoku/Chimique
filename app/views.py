@@ -57,6 +57,8 @@ class SenhaView(View):
                 administra = False
             
             request.session['ADM'] = administra
+            if(administra == True):
+                return redirect('lista')
         return render(request, 'senha.html', {'form':form, 'ADM':administra})
     
 def get_suggestions(request):
@@ -80,8 +82,11 @@ def pesquisar_produto(request):
 
 class registrar_produto(View):
     def get(self, request):
-        form = ProdutoForm
-        return render(request, 'registrar_produto.html', {'form': form})
+        if(request.session.get('ADM') == True):
+            form = ProdutoForm
+            return render(request, 'registrar_produto.html', {'form': form})
+        else:
+            return redirect('senha')
     def post(self, request):
         form = ProdutoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -106,9 +111,11 @@ class registrar_produto(View):
 
 class listaView(View):
     def get(self, request):
-        produtos = Produto.objects.all()
-        return render(request, 'lista.html', {'produtos': produtos })
-    
+        if(request.session.get('ADM') == True):
+            produtos = Produto.objects.all()
+            return render(request, 'lista.html', {'produtos': produtos })
+        else:
+            return redirect('senha')
 class deleteProduto(View):
     def get(self, request, id, *args, **kwargs):
         produtos = Produto.objects.get(id = id)
@@ -122,7 +129,7 @@ def misturar_compostos(request):
             composto1 = form.cleaned_data['composto1']
             
             sysprompt = f'Você é um especialista em química'
-            sysprompt = f'Você responde segundo a IUPAC'
+            sysprompt = f'Você responde em português'
             prompt = f"Qual a mistura dos compostos: {composto1}"
 
             try:

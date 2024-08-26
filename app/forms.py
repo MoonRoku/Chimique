@@ -28,5 +28,6 @@ class SenhaForm(forms.Form):
     )
     senha = forms.CharField(
         label='',
-        max_length=100
+        max_length=100,
+        widget=forms.PasswordInput()
     )
